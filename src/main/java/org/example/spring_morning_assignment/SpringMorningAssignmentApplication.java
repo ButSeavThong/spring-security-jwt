@@ -1,5 +1,7 @@
 package org.example.spring_morning_assignment;
 
+import org.example.spring_morning_assignment.model.Student;
+import org.example.spring_morning_assignment.service.StudentService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

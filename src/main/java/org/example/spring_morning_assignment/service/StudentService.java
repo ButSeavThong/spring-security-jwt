@@ -1,5 +1,6 @@
-package org.example.spring_morning_assignment;
+package org.example.spring_morning_assignment.service;
 
+import org.example.spring_morning_assignment.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
