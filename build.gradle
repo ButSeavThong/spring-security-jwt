@@ -4,6 +4,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
+
 group = 'org.example'
 version = '0.0.1-SNAPSHOT'
 
@@ -13,23 +14,30 @@ java {
     }
 }
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
+
+    // 🌱 Spring Boot Starters (no versions needed, inherit from plugin)
+    implementation 'org.springframework.boot:spring-boot-starter-web'       // @RestController, @RequestMapping, MVC, Jackson
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // JPA & Hibernate
+    implementation 'org.springframework.boot:spring-boot-starter-security'  // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-aop'       // Aspect Oriented Programming (AOP)
+
+    // 🗄️ Database
+    runtimeOnly 'org.postgresql:postgresql'  // PostgreSQL driver
+
+    // 🧰 Lombok
+    compileOnly 'org.projectlombok:lombok'    // only compile-time
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // 🧪 Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'       // Spring Boot + JUnit + Mockito
+    testImplementation 'org.springframework.security:spring-security-test'       // Security test helpers
 }
+
 
 tasks.named('test') {
     useJUnitPlatform()

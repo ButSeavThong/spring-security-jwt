@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: spring-security-jwt
+
+  threads:
+    virtual:
+      enabled: true
+
+  datasource:
+    username: Thong
+    password: qwerqwer
+    url: jdbc:postgresql://localhost:2025/jwt_db
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
