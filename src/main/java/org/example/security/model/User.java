@@ -22,7 +22,7 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String userName;
-    @Column( unique =  false, nullable = false)
+    @Column( nullable = false)
     private String password;
     private String email;
     private String firstName;
@@ -35,7 +35,7 @@ public class User {
     private boolean isCredentialsNonExpired;
 
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER )
     private Set<Account> accounts;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -25,7 +25,7 @@ public class UserController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     public List<UserResponse> findAllUsers() {
         return userService.findAllUsers();
     }

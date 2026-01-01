@@ -1,7 +1,6 @@
 package org.example.security.security;
 
 import lombok.RequiredArgsConstructor;
-import org.example.security.feature.user.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,13 +15,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity // Disable default security configuration for customization
+@EnableWebSecurity
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
     private final PasswordEncoder passwordEncoder;
-    private final  UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
@@ -30,21 +29,21 @@ public class SecurityConfiguration {
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
 
-        http.authorizeHttpRequests(request->request
-                        .requestMatchers("/public/**")
-                        .permitAll()
-                .requestMatchers("/api/v1/users/register").permitAll()
-                .anyRequest().authenticated()); // validate all request
-        // disbale default form login that need token every subnit data request
-        // http.csrf(token->token.disable());
-        http.csrf(AbstractHttpConfigurer::disable);
-        // api security stateless
-        http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authenticationProvider(daoAuthenticationProvider())
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers("/public/**", "/api/v1/users/register").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults())  // Enable Basic Auth
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                );
 
         return http.build();
     }
-
 }
