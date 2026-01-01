@@ -24,7 +24,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'       // @RestController, @RequestMapping, MVC, Jackson
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // JPA & Hibernate
     implementation 'org.springframework.boot:spring-boot-starter-security'  // Spring Security
-    implementation 'org.springframework.boot:spring-boot-starter-aop'       // Aspect Oriented Programming (AOP)
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+// Aspect Oriented Programming (AOP)
 
     // 🗄️ Database
     runtimeOnly 'org.postgresql:postgresql'  // PostgreSQL driver

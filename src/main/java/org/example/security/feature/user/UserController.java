@@ -25,8 +25,16 @@ public class UserController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public List<UserResponse> findAllUsers() {
         return userService.findAllUsers();
     }
+
+    @GetMapping("/id/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public UserResponse findUserById(@PathVariable Integer id) {
+        return userService.findUserById(id);
+    }
+
 }

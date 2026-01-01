@@ -10,4 +10,6 @@ public interface UserService {
     UserResponse createUser(CreateUserRequest createUserRequest);
 
     List<UserResponse> findAllUsers();
+
+    UserResponse findUserById(Integer id);
 }

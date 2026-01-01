@@ -6,8 +6,10 @@ import org.example.security.feature.user.dto.CreateUserRequest;
 import org.example.security.feature.user.dto.UserResponse;
 import org.example.security.model.Role;
 import org.example.security.model.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +25,9 @@ public class UserServiceImplement implements UserService {
 
     @Override
     public UserResponse createUser(CreateUserRequest req) {
+        if(userRepository.existsByUserName(req.userName())){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
+        }
         if(req.userName()== null || req.userName().isEmpty()){
             throw new IllegalArgumentException("userName cannot be null or empty");
         }
@@ -74,6 +79,18 @@ public class UserServiceImplement implements UserService {
                 user.getFirstName(),
                 user.getLastName()
                 )).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserResponse findUserById(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        return new UserResponse(
+                user.getUserName(),
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName()
+        );
     }
 
 }
