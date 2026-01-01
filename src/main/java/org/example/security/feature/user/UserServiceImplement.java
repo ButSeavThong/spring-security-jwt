@@ -6,6 +6,7 @@ import org.example.security.feature.user.dto.CreateUserRequest;
 import org.example.security.feature.user.dto.UserResponse;
 import org.example.security.model.Role;
 import org.example.security.model.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class UserServiceImplement implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponse createUser(CreateUserRequest req) {
@@ -34,7 +36,7 @@ public class UserServiceImplement implements UserService {
         User user = new User();
         user.setUserName(req.userName());
         user.setEmail(req.email());
-        user.setPassword(req.password());
+        user.setPassword(passwordEncoder.encode(req.password()));
         user.setFirstName(req.firstName());
         user.setLastName(req.lastName());
         user.setEnabled(true);
