@@ -1,7 +1,7 @@
 package org.example.security.feature.user;
 
 import lombok.RequiredArgsConstructor;
-import org.example.security.feature.role.RoleRepository;
+import org.example.security.feature.roleAndAuthority.RoleRepository;
 import org.example.security.feature.user.dto.CreateUserRequest;
 import org.example.security.feature.user.dto.UserResponse;
 import org.example.security.model.Role;
@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +48,7 @@ public class UserServiceImplement implements UserService {
         user.setEnabled(true);
 
         // assign role
-        Set<Role> roles = new HashSet<>();
+        List<Role> roles = new ArrayList<>();
         String userRole ="USER";
         Role role = roleRepository.findByRoleName(userRole)
                 .orElseThrow(()-> new IllegalArgumentException("Role not found") );

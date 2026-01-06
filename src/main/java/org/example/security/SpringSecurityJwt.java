@@ -14,4 +14,3 @@ public class SpringSecurityJwt {
         log.info("Application started successfully!");
     }
 }
-

@@ -22,14 +22,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found: " + username)
                 );
-
-
-        log.info("Loaded User: {}", user);
-
-        CustomUserDetails userDetails = new CustomUserDetails(user);
-
-        // Optional: log CustomUserDetails too
-        log.info("UserDetails: {}", userDetails);
+        CustomUserDetails userDetails = new CustomUserDetails();
+        userDetails.setUser(user);
 
         return userDetails;
     }

@@ -16,19 +16,14 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/register")
-    @PreAuthorize("permitAll()")  // anyone can access
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse createUser(@RequestBody CreateUserRequest createUserRequest) {
-        return userService.createUser(createUserRequest);
-    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_user:read')")
     public List<UserResponse> findAllUsers() {
         return userService.findAllUsers();
     }
+
 
     @GetMapping("/id/{id}")
     @ResponseStatus(HttpStatus.OK)

@@ -36,6 +36,12 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'    // only compile-time
     annotationProcessor 'org.projectlombok:lombok'
 
+
+    // MapStruct + Lombok-MapStruct binding (correct ordering)
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
     // 🧪 Testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'       // Spring Boot + JUnit + Mockito
     testImplementation 'org.springframework.security:spring-security-test'       // Security test helpers

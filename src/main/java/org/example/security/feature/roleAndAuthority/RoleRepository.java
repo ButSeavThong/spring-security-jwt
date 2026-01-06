@@ -1,4 +1,4 @@
-package org.example.security.feature.role;
+package org.example.security.feature.roleAndAuthority;
 
 import org.example.security.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

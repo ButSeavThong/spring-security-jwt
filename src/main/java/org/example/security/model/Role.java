@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,4 +37,12 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return "ROLE_" +  roleName;
     }
+
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "role_authorities", joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id")
+    )
+    private List<Authority> authorities;
+
 }
